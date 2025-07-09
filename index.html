@@ -11,7 +11,7 @@
   <!-- ============ SETUP PANEL ============ -->
   <section id="setup">
     <div class="setup-card">               <!--  Rounded card wrapper  -->
-      <h1 style="margin-bottom:1.5rem;">Event screen – quick setup</h1>
+      <h1 style="margin-bottom:1.5rem;">Event screen – hurtig setup</h1>
 
       <form id="setupForm">
 
@@ -32,13 +32,13 @@
             <button type="button" id="clearLogo" class="clearBtn">Clear</button>
           </div>
         
-          <small class="hint">Default logo will be used if none selected.</small>
+          <small class="hint">Standard logo vil blive brugt hvis intet er valgt.</small>
         </div>
 
         <!-- EVENT NAME ----------------------------------------------------->
         <div class="field-group">
           <div class="field-header">
-            <label class="field-label">Event name</label>
+            <label class="field-label">Event navn / Intro titel</label>
             <label class="switch">
               <input type="checkbox" id="toggleTitle" checked>
               <span class="slider round"></span>
@@ -52,7 +52,7 @@
         <!-- WI-FI DETAILS --------------------------------------------------->
         <div class="field-group">
           <div class="field-header">
-            <label class="field-label">Wi-Fi details</label>
+            <label class="field-label">Wi-Fi detaljer</label>
             <label class="switch">
               <input type="checkbox" id="toggleWifi" checked>
               <span class="slider round"></span>
@@ -77,7 +77,7 @@
         <!-- TODAY’S PROGRAM ------------------------------------------------->
         <div class="field-group">
           <div class="field-header">
-            <label class="field-label">Today’s programme</label>
+            <label class="field-label">Dagens program</label>
             <label class="switch">
               <input type="checkbox" id="toggleProgram" checked>
               <span class="slider round"></span>
@@ -129,25 +129,25 @@
 
         <!-- BACKGROUND IMAGES --------------------------------------------->
         <div class="field-group">
-          <label class="field-label">Background images (JPEG/PNG, multiple)</label>
+          <label class="field-label">Baggrundsbilleder (JPEG/PNG, flere kan vælges)</label>
         
           <div class="fileRow">
             <input type="file" accept="image/*" id="bgInput" multiple>
             <button type="button" id="clearBg" class="clearBtn">Clear</button>
           </div>
         
-          <small class="hint">Default slideshow (bg-01 / bg-02) will be used if none selected.</small>
+          <small class="hint">Standard slideshow vil vises hvis intet er valgt.</small>
         </div>
 
         <!-- ADJUSTABLE TIMING --------------------------------------------->
 
         <div class="field-group">
-          <label class="field-label">Slide duration (seconds)</label>
+          <label class="field-label">Baggrundsbilleder varighed (sekunder)</label>
           <input type="number" id="bgSeconds" value="30" min="3" step="1">
         </div>
         
         <div class="field-group">
-          <label class="field-label">Cue duration (seconds)</label>
+          <label class="field-label">Tekst varighed (sekunder)</label>
           <input type="number" id="cueSeconds" value="16"  min="3" step="1">
         </div>
 
