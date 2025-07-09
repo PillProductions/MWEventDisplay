@@ -5,62 +5,172 @@
   <title>Event Screen Setup</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+
   <!-- ============ SETUP PANEL ============ -->
   <section id="setup">
-    <h1>Event screen – quick setup</h1>
+    <div class="setup-card">               <!--  Rounded card wrapper  -->
+      <h1 style="margin-bottom:1.5rem;">Event screen – quick setup</h1>
 
-    <form id="setupForm">
-      <label>Intro logo
-        <input type="file" accept="image/*" id="logoInput" />
-      </label>
+      <form id="setupForm">
 
-      <label>Event name
-        <input type="text" id="eventName" placeholder="Company Retreat" required />
-      </label>
+        <!-- INTRO LOGO ----------------------------------------------------->
+        <div class="field-group">
+          <div class="field-header">
+            <label class="field-label">Intro logo</label>
+        
+            <!-- ON/OFF slider you already have -->
+            <label class="switch">
+              <input type="checkbox" id="toggleLogo" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        
+          <div class="fileRow">               <!-- new wrapper -->
+            <input type="file" accept="image/*" id="logoInput">
+            <button type="button" id="clearLogo" class="clearBtn">Clear</button>
+          </div>
+        
+          <small class="hint">Default logo will be used if none selected.</small>
+        </div>
 
-      <fieldset>
-        <legend>Wi-Fi details</legend>
-        <label>SSID
-          <input type="text" id="ssid" value="Guest Moalem Weitemeyer" required />
-        </label>
-        <label>Password
-          <input type="text" id="wifiPw" value="mwlaw1256" required />
-        </label>
-      </fieldset>
+        <!-- EVENT NAME ----------------------------------------------------->
+        <div class="field-group">
+          <div class="field-header">
+            <label class="field-label">Event name</label>
+            <label class="switch">
+              <input type="checkbox" id="toggleTitle" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
 
-      <label>Program (optional)
-        <textarea id="program" rows="4"
-          placeholder="09:00 Welcome\n10:30 Keynote\n…"></textarea>
-      </label>
+          <input type="text" id="eventName"
+                 placeholder="Company Retreat"
+                 class="wide-input" />
+        </div>
 
-      <label>Reminder line 1
-        <input type="text" id="line1" value="PLEASE TURN YOUR PHONE ON SILENT" />
-      </label>
+        <!-- WI-FI DETAILS --------------------------------------------------->
+        <div class="field-group">
+          <div class="field-header">
+            <label class="field-label">Wi-Fi details</label>
+            <label class="switch">
+              <input type="checkbox" id="toggleWifi" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
 
-      <label>Reminder line 2
-        <input type="text" id="line2" value="WE HOPE YOU ENJOY THE EVENT" />
-      </label>
+          <fieldset style="border:none;padding:0;">
+            <label>SSID
+              <input type="text" id="ssid"
+                     value="Guest Moalem Weitemeyer"
+                     class="wide-input" required />
+            </label>
 
-      <label>Background images (JPEG/PNG, multiple)
-        <input type="file" accept="image/*" id="bgInput" multiple />
-      </label>
+            <label>Password
+              <input type="text" id="wifiPw"
+                     value="mwlaw1256"
+                     class="wide-input" required />
+            </label>
+          </fieldset>
+        </div>
 
-      <button type="submit">PLAY ▶︎</button>
-    </form>
+        <!-- TODAY’S PROGRAM ------------------------------------------------->
+        <div class="field-group">
+          <div class="field-header">
+            <label class="field-label">Today’s programme</label>
+            <label class="switch">
+              <input type="checkbox" id="toggleProgram" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <div id="programSection">
+            <div id="programList">
+              <!-- starter row -->
+              <div class="progRow">
+                <input type="time"  class="progTime"  value="09:00">
+                <input type="text"  class="progTitle"
+                       placeholder="Welcome coffee">
+                <button type="button" class="removeRow">✕</button>
+              </div>
+            </div>
+
+            <button type="button" id="addRow">+ Add entry</button>
+          </div>
+        </div>
+
+        <!-- REMINDER 1 ------------------------------------------------------>
+        <div class="field-group">
+          <div class="field-header">
+            <label class="field-label">Reminder line 1</label>
+            <label class="switch">
+              <input type="checkbox" id="toggleRem1" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <input type="text" id="line1"
+                 value="PLEASE TURN YOUR PHONE ON SILENT"
+                 class="wide-input" />
+        </div>
+
+        <!-- REMINDER 2 ------------------------------------------------------>
+        <div class="field-group">
+          <div class="field-header">
+            <label class="field-label">Reminder line 2</label>
+            <label class="switch">
+              <input type="checkbox" id="toggleRem2" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <input type="text" id="line2"
+                 value="WE HOPE YOU ENJOY THE EVENT"
+                 class="wide-input" />
+        </div>
+
+        <!-- BACKGROUND IMAGES --------------------------------------------->
+        <div class="field-group">
+          <label class="field-label">Background images (JPEG/PNG, multiple)</label>
+        
+          <div class="fileRow">
+            <input type="file" accept="image/*" id="bgInput" multiple>
+            <button type="button" id="clearBg" class="clearBtn">Clear</button>
+          </div>
+        
+          <small class="hint">Default slideshow (bg-01 / bg-02) will be used if none selected.</small>
+        </div>
+
+        <!-- ADJUSTABLE TIMING --------------------------------------------->
+
+        <div class="field-group">
+          <label class="field-label">Slide duration (seconds)</label>
+          <input type="number" id="bgSeconds" value="15" min="3" step="1">
+        </div>
+        
+        <div class="field-group">
+          <label class="field-label">Cue duration (seconds)</label>
+          <input type="number" id="cueSeconds" value="8"  min="3" step="1">
+        </div>
+
+        <button type="submit">PLAY ▶︎</button>
+      </form>
+    </div>
   </section>
 
   <!-- ============ PLAYER LAYER (initially hidden) ============ -->
   <section id="player" class="hidden">
     <div id="bgContainer"></div>
+    <button id="editBtn" title="Edit setup">⚙️</button>
 
     <!-- foreground cue wrappers -->
-    <img id="logo" class="cue" />
-    <h1 id="title" class="cue"></h1>
-    <div id="wifi" class="cue"></div>
-    <pre id="programBlock" class="cue"></pre>
-    <h2 id="rem1" class="cue"></h2>
-    <h2 id="rem2" class="cue"></h2>
+    <img id="logo"   class="cue" />
+    <h1  id="title"  class="cue"></h1>
+    <div id="wifi"   class="cue"></div>
+    <div id="programBlock" class="cue"></div>
+    <h2  id="rem1"   class="cue"></h2>
+    <h2  id="rem2"   class="cue"></h2>
   </section>
 
   <script src="player.js"></script>

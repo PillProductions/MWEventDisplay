@@ -1,51 +1,332 @@
-/* --- reset & layout --- */
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif}
-body,html{width:100%;height:100%}
-section{width:100%;height:100%}
-.hidden{display:none}
+    /* ---------- custom slide font ---------- */
+    @font-face{
+      font-family:'Reckless';
+      src:url('defaults/Reckless-Regular.ttf') format('truetype');
+      font-weight:400;           /* regular */
+      font-style:normal;
+    }
+    
+    /* NEW: pretend the same file is also the “bold” cut */
+    @font-face{
+      font-family:'Reckless';
+      src:url('defaults/Reckless-Regular.ttf') format('truetype');
+      font-weight:700;           /* bold */
+      font-style:normal;
+      font-display:swap;
+    }
 
-/* --- setup form --- */
-#setup{padding:2rem;max-width:700px;margin:auto}
-label{display:block;margin:1rem 0}
-input,textarea{width:100%;padding:.4rem;font-size:1rem}
+/* ==============================================================
+   RESET & BASE LAYOUT
+   ============================================================== */
+   *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    
+  }
+  
+  html,body{width:100%;height:100%;}
+  section   {width:100%;height:100%;}
+  .hidden   {display:none;}
+  body      {background:#f5f5f5;}
 
-/* --- player stage --- */
-#player{
-  position:fixed;inset:0;
-  overflow:hidden;
-  background:#000;
-  color:#fff;
-}
-#bgContainer img{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  object-fit:cover;
-  animation:kenburns 15s ease-in-out infinite;
-  opacity:0;
-}
-@keyframes kenburns{
-  0%{transform:scale(1.1) translateX(0);opacity:0}
-  10%{opacity:1}
-  50%{transform:scale(1.05) translateX(20px)}
-  90%{opacity:1}
-  100%{transform:scale(1.1) translateX(40px);opacity:0}
-}
 
-/* --- cue common --- */
-.cue{
-  position:absolute;inset:0;
-  display:flex;justify-content:center;align-items:center;
-  font-weight:600;text-align:center;
-  opacity:0;
-}
-#logo{max-width:70vw;max-height:70vh;object-fit:contain}
-#title{font-size:6vw}
-#wifi, #programBlock{font-size:3vw;white-space:pre-wrap;padding:0 2vw}
-h2{font-size:3.5vw}
+  
+  /* ==============================================================
+     SETUP PAGE – CARD & FORM
+     ============================================================== */
+  #setup            {padding:2rem;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,Reckless;}
+  .setup-card{
+    max-width:720px;
+    margin:0 auto;
+    padding:2.5rem;
+    background:#fff;
+    border-radius:1rem;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+  }
+  
+  /* generic field wrapper */
+  .field-group      {margin-bottom:1.5rem;}
+  .field-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:.5rem;
+  }
+  .field-label      {font-weight:600;font-size:1.05rem;}
+  
+  /* inputs */
+  input[type="text"],
+  input[type="time"],
+  input[type="file"],
+  textarea{
+    width:100%;
+    padding:.55rem;
+    border:1px solid #ccc;
+    border-radius:.4rem;
+    font-size:1rem;
+  }
+  input[type="file"]{font-size:.9rem;}
+  input[type="number"]{max-width:8rem;}
+  
+  /* PLAY button */
+  #setup button[type="submit"]{
+    margin-top:.8rem;
+    padding:.6rem 1.4rem;
+    border:none;
+    background:#0078d4;
+    color:#fff;
+    font-weight:600;
+    border-radius:.4rem;
+    cursor:pointer;
+  }
+  #setup button[type="submit"]:hover{background:#0066b1;}
+  
+  /* --------------------------------------------------------------
+     PROGRAMME rows in the form
+     -------------------------------------------------------------- */
+  #programList{
+    display:flex;
+    flex-direction:column;
+    gap:.6rem;
+  }
+  .progRow{
+    display:flex;
+    gap:.6rem;
+    align-items:center;
+  }
+  .progRow input[type="time"]{
+    width:7rem;
+  }
+  .removeRow{
+    padding:.3rem .6rem;
+    border:none;
+    border-radius:.3rem;
+    background:#e74c3c;
+    color:#fff;
+    font-size:.9rem;
+    line-height:1;
+    cursor:pointer;
+  }
+  .removeRow:hover      {background:#c0392b;}
+  
+  /* “+ Add entry” button */
+  #addRow{
+    margin-top:.6rem;
+    padding:.45rem .9rem;
+    border:none;
+    border-radius:.4rem;
+    background:#eee;
+    font-weight:600;
+    cursor:pointer;
+  }
+  #addRow:hover         {background:#ddd;}
+  
+  /* --------------------------------------------------------------
+     SLIDER (Enable / Disable)
+     -------------------------------------------------------------- */
+  .switch{
+    position:relative;
+    display:inline-block;
+    width:46px;
+    height:24px;
+  }
+  .switch input{opacity:0;width:0;height:0;}
+  .slider{
+    position:absolute;
+    inset:0;
+    cursor:pointer;
+    background:#ccc;
+    border-radius:34px;
+    transition:.3s;
+  }
+  .slider:before{
+    content:"";
+    position:absolute;
+    height:18px;
+    width:18px;
+    left:3px;
+    bottom:3px;
+    background:#fff;
+    border-radius:50%;
+    transition:.3s;
+  }
+  input:checked + .slider      {background:#4caf50;}
+  input:checked + .slider:before{transform:translateX(22px);}
+  .slider.round                {border-radius:34px;}
+  
+  /* ==============================================================
+     PLAYER STAGE
+     ============================================================== */
+     #player{
+      position:fixed;
+      inset:0;
+      overflow:hidden;
+      background:#000;
+      color:#fff;
+      font-family:'Reckless', serif;   /* <<< NEW */
+    }
+  /* background slideshow */
+  .bgSlide{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 1s ease-in-out;
+  }
+  .bgSlide.active{
+    opacity:1;
+    animation:kenburns 15s ease-in-out;
+  }
+  @keyframes kenburns{
+    0%   {transform:scale(1.1) translateX(0); opacity:0;}
+    10%  {opacity:1;}
+    90%  {transform:scale(1)   translateX(40px); opacity:1;}
+    100% {opacity:0;}
+  }
+  
+  /* cue positioning */
+  .cue{
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:600;
+    text-align:center;
+    opacity:0;
+  }
+  #logo {max-width:70vw; max-height:70vh; object-fit:contain;}
+  #title{font-size:6vw;}
+  h2    {font-size:3.5vw;}
+  
+  /* ==============================================================
+     Wi-Fi block (2-column grid)
+     ============================================================== */
+  #wifi{
+    display:inline-grid;
+    grid-template-columns:max-content 1fr;
+    column-gap:.6em; row-gap:.4em;
+    justify-content:center;
+    font-size:3vw;
+  }
+  .wifi-heading{
+    grid-column:1 / -1;
+    text-align:center;
+    font-size:1.1em;
+    font-weight:700;
+  }
+  .wifi-label{
+    text-align:right;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .wifi-val{
+    text-align:left;
+    color:#B49646;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  
+  /* ==============================================================
+     PROGRAMME grid in the player
+     ============================================================== */
+  #programBlock{
+    display:inline-grid;                /* shrink-to-fit, cue centres it */
+    grid-template-columns:max-content 1fr;
+    column-gap:.8em; row-gap:.4em;
+    line-height:1.1;
+    font-size:3.5vw;
+  }
+  .program-heading{
+    grid-column:1 / -1;
+    text-align:center;
+    font-size:1.1em;
+    font-weight:700;
+    margin-bottom:.2em;
+  }
+  .prog-time {text-align:right; font-weight:700; white-space:nowrap;}
+  .prog-title{text-align:left;  white-space:nowrap;}
+  
+  /* ==============================================================
+     FLOATING “EDIT” BUTTON
+     ============================================================== */
+  #editBtn{
+    position:absolute;
+    top:1rem; right:1rem;
+    padding:.4rem .6rem;
+    font-size:1.2rem; line-height:1;
+    border:none;
+    border-radius:.35rem;
+    background:rgba(255,255,255,.8);
+    color:#000;
+    opacity:0;                /* hidden until hover */
+    cursor:pointer;
+    transition:opacity .25s;
+  }
+  #editBtn:hover{opacity:1;}
 
-@keyframes fadeZoom {
-  0%   {opacity:0;transform:scale(1)}
-  10%  {opacity:1}
-  85%  {opacity:1;transform:scale(1.03)}
-  100% {opacity:0;transform:scale(1.05)}
-}
+  /* --------------------------------------------------------------
+   SOFT SHADOW ON EVERY FOREGROUND CUE
+   -------------------------------------------------------------- */
+
+  /* text cues (title, Wi-Fi, programme, reminders…) */
+  .cue{
+    text-shadow: 0 3px 8px rgba(0,0,0,.45);   /* horizontal, vertical, blur, colour */
+  }
+
+  /* logo image */
+  #logo{
+    /* text-shadow doesn’t work on images, so use CSS filters instead */
+    filter: drop-shadow(0 3px 8px rgba(0,0,0,.55));
+  }
+  
+  /* ---------- “Clear” buttons ---------- */
+  .clearBtn{
+    margin-left:.6rem;
+    padding:.25rem .7rem;
+    font-size:.8rem;
+    border:none;
+    border-radius:.35rem;
+    background:#e74c3c;          /* red pill */
+    color:#fff;
+    cursor:pointer;
+  }
+  .clearBtn:hover{background:#c0392b;}
+
+  /* grey helper text */
+  .hint{
+    display:block;
+    margin-top:.25rem;
+    font-size:.8rem;
+    color:#666;
+  }
+
+    /* align file input + Clear button on one line */
+  .fileRow{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  .fileRow input[type="file"]{
+    flex:1;               /* let the picker take the remaining width */
+  }
+
+  /* tweaks so the red pill lines up nicely */
+  .clearBtn{
+    margin:0;             /* override previous margin-left */
+    white-space:nowrap;   /* keep “Clear” on one line */
+  }
+
+
+  /* cue fade-zoom */
+  @keyframes fadeZoom{
+    0%   {opacity:0; transform:translate(-50%,-50%) scale(1);}
+    10%  {opacity:1; transform:translate(-50%,-50%) scale(1);}
+    85%  {opacity:1; transform:translate(-50%,-50%) scale(1.03);}
+    100% {opacity:0; transform:translate(-50%,-50%) scale(1.05);}
+  }
+  
