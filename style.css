@@ -1,0 +1,51 @@
+/* --- reset & layout --- */
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif}
+body,html{width:100%;height:100%}
+section{width:100%;height:100%}
+.hidden{display:none}
+
+/* --- setup form --- */
+#setup{padding:2rem;max-width:700px;margin:auto}
+label{display:block;margin:1rem 0}
+input,textarea{width:100%;padding:.4rem;font-size:1rem}
+
+/* --- player stage --- */
+#player{
+  position:fixed;inset:0;
+  overflow:hidden;
+  background:#000;
+  color:#fff;
+}
+#bgContainer img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  animation:kenburns 15s ease-in-out infinite;
+  opacity:0;
+}
+@keyframes kenburns{
+  0%{transform:scale(1.1) translateX(0);opacity:0}
+  10%{opacity:1}
+  50%{transform:scale(1.05) translateX(20px)}
+  90%{opacity:1}
+  100%{transform:scale(1.1) translateX(40px);opacity:0}
+}
+
+/* --- cue common --- */
+.cue{
+  position:absolute;inset:0;
+  display:flex;justify-content:center;align-items:center;
+  font-weight:600;text-align:center;
+  opacity:0;
+}
+#logo{max-width:70vw;max-height:70vh;object-fit:contain}
+#title{font-size:6vw}
+#wifi, #programBlock{font-size:3vw;white-space:pre-wrap;padding:0 2vw}
+h2{font-size:3.5vw}
+
+@keyframes fadeZoom {
+  0%   {opacity:0;transform:scale(1)}
+  10%  {opacity:1}
+  85%  {opacity:1;transform:scale(1.03)}
+  100% {opacity:0;transform:scale(1.05)}
+}
