@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Event Screen Setup</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ============ SETUP PANEL ============ -->
+  <section id="setup">
+    <h1>Event screen – quick setup</h1>
+
+    <form id="setupForm">
+      <label>Intro logo
+        <input type="file" accept="image/*" id="logoInput" />
+      </label>
+
+      <label>Event name
+        <input type="text" id="eventName" placeholder="Company Retreat" required />
+      </label>
+
+      <fieldset>
+        <legend>Wi-Fi details</legend>
+        <label>SSID
+          <input type="text" id="ssid" value="Guest Moalem Weitemeyer" required />
+        </label>
+        <label>Password
+          <input type="text" id="wifiPw" value="mwlaw1256" required />
+        </label>
+      </fieldset>
+
+      <label>Program (optional)
+        <textarea id="program" rows="4"
+          placeholder="09:00 Welcome\n10:30 Keynote\n…"></textarea>
+      </label>
+
+      <label>Reminder line 1
+        <input type="text" id="line1" value="PLEASE TURN YOUR PHONE ON SILENT" />
+      </label>
+
+      <label>Reminder line 2
+        <input type="text" id="line2" value="WE HOPE YOU ENJOY THE EVENT" />
+      </label>
+
+      <label>Background images (JPEG/PNG, multiple)
+        <input type="file" accept="image/*" id="bgInput" multiple />
+      </label>
+
+      <button type="submit">PLAY ▶︎</button>
+    </form>
+  </section>
+
+  <!-- ============ PLAYER LAYER (initially hidden) ============ -->
+  <section id="player" class="hidden">
+    <div id="bgContainer"></div>
+
+    <!-- foreground cue wrappers -->
+    <img id="logo" class="cue" />
+    <h1 id="title" class="cue"></h1>
+    <div id="wifi" class="cue"></div>
+    <pre id="programBlock" class="cue"></pre>
+    <h2 id="rem1" class="cue"></h2>
+    <h2 id="rem2" class="cue"></h2>
+  </section>
+
+  <script src="player.js"></script>
+</body>
+</html>
