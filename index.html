@@ -45,9 +45,8 @@
             </label>
           </div>
 
-          <input type="text" id="eventName"
-                 placeholder="Company Retreat"
-                 class="wide-input" />
+          <textarea id="eventName" rows="2" placeholder="Company Retreat"
+          class="wide-input"></textarea>
         </div>
 
         <!-- WI-FI DETAILS --------------------------------------------------->
@@ -69,7 +68,7 @@
 
             <label>Password
               <input type="text" id="wifiPw"
-                     value="mwlaw1256"
+                     value="xxx"
                      class="wide-input" required />
             </label>
           </fieldset>
@@ -110,9 +109,8 @@
             </label>
           </div>
 
-          <input type="text" id="line1"
-                 value="PLEASE TURN YOUR PHONE ON SILENT"
-                 class="wide-input" />
+          <textarea id="line1" rows="2"
+          class="wide-input">PLEASE TURN YOUR PHONE ON SILENT</textarea>
         </div>
 
         <!-- REMINDER 2 ------------------------------------------------------>
@@ -125,9 +123,8 @@
             </label>
           </div>
 
-          <input type="text" id="line2"
-                 value="WE HOPE YOU ENJOY THE EVENT"
-                 class="wide-input" />
+          <textarea id="line2" rows="2"
+          class="wide-input">WE HOPE YOU ENJOY THE EVENT</textarea>
         </div>
 
         <!-- BACKGROUND IMAGES --------------------------------------------->
@@ -146,12 +143,12 @@
 
         <div class="field-group">
           <label class="field-label">Slide duration (seconds)</label>
-          <input type="number" id="bgSeconds" value="15" min="3" step="1">
+          <input type="number" id="bgSeconds" value="30" min="3" step="1">
         </div>
         
         <div class="field-group">
           <label class="field-label">Cue duration (seconds)</label>
-          <input type="number" id="cueSeconds" value="8"  min="3" step="1">
+          <input type="number" id="cueSeconds" value="16"  min="3" step="1">
         </div>
 
         <button type="submit">PLAY ▶︎</button>
@@ -162,6 +159,7 @@
   <!-- ============ PLAYER LAYER (initially hidden) ============ -->
   <section id="player" class="hidden">
     <div id="bgContainer"></div>
+    <button id="fsBtn"   title="Toggle full-screen">⛶</button>   <!-- NEW -->
     <button id="editBtn" title="Edit setup">⚙️</button>
 
     <!-- foreground cue wrappers -->

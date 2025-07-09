@@ -34,9 +34,9 @@
    $('#setupForm').addEventListener('submit', async e => {
      e.preventDefault();
    
-     /* timings in ms (fallback 15 s / 8 s) */
-     const bgMs  = 1000 * ($('#bgSeconds').valueAsNumber || 15);
-     const cueMs = 1000 * ($('#cueSeconds').valueAsNumber || 8);
+    /* timings in ms (fallback 30 s / 16 s) */
+    const bgMs  = 1000 * ($('#bgSeconds').valueAsNumber || 30);
+    const cueMs = 1000 * ($('#cueSeconds').valueAsNumber || 16);
    
      const data = {
        /* assets & strings */
@@ -75,9 +75,42 @@
    
      $('#setup').classList.add('hidden');
      $('#player').classList.remove('hidden');
+
+     function fitText(el, maxVw, minVw = 2){
+      if(!el) return;
+      let size = maxVw;
+      el.style.fontSize = size + 'vw';
+      const maxW = window.innerWidth * 0.9,
+            maxH = window.innerHeight * 0.8;
+      while(size > minVw &&
+           (el.scrollWidth > maxW || el.scrollHeight > maxH)){
+        size -= 0.5;
+        el.style.fontSize = size + 'vw';
+      }
+    }
+    
+    /* --- inside startPlayer(), AFTER you set textContent / innerHTML --- */
+    fitText($('#title'), 6);          // event name
+    fitText($('#rem1'),  3.5);
+    fitText($('#rem2'),  3.5);
+    fitText($('#programBlock'), 3.5); // handles many rows
+
+
+
      startPlayer(data);
    });
-   
+   function fitToWidth(el, maxFraction = 0.6, maxVw = 5.5, minVw = 1.5){
+    if(!el) return;
+    const maxW = window.innerWidth * maxFraction;
+    let size   = maxVw;
+    el.style.fontSize = size + 'vw';
+  
+    // shrink in 0.25-vw steps until the block fits the width cap
+    while (size > minVw && el.scrollWidth > maxW){
+      size -= 0.25;
+      el.style.fontSize = size + 'vw';
+    }
+  }
    /* =====================================================================
       2.  PLAYER LOGIC
       ===================================================================== */
@@ -95,13 +128,13 @@
        <div class="wifi-heading">JOIN OUR WI-FI</div>
        <span class="wifi-label">NETWORK:</span><span class="wifi-val">${d.ssid}</span>
        <span class="wifi-label">PASSWORD:</span><span class="wifi-val">${d.pw}</span>`;
-   
+    
      $('#programBlock').innerHTML =
        `<span class="program-heading">PROGRAM</span>` +
        d.program.map(p => `
          <span class="prog-time">${p.time}</span><span class="prog-title">${p.title}</span>`
        ).join('');
-   
+    fitToWidth($('#programBlock'), 0.6, 3.5);   // 60 % viewport cap
      $('#rem1').textContent = d.rem1;
      $('#rem2').textContent = d.rem2;
    
@@ -212,4 +245,17 @@
        startPlayer(JSON.parse(saved));
      }
    });
-   
+
+    /* ==== FULL-SCREEN TOGGLE ==== */
+  $('#fsBtn').addEventListener('click', async () => {
+    try{
+      if (!document.fullscreenElement){
+        await document.documentElement.requestFullscreen();
+      } else{
+        await document.exitFullscreen();
+      }
+    }catch(err){
+      console.warn('Fullscreen request failed:', err);
+    }
+  });
+    

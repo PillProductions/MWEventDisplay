@@ -182,8 +182,8 @@
   }
   @keyframes kenburns{
     0%   {transform:scale(1.1) translateX(0); opacity:0;}
-    10%  {opacity:1;}
-    90%  {transform:scale(1)   translateX(40px); opacity:1;}
+    5%  {opacity:1;}
+    95%  {transform:scale(1)   translateX(40px); opacity:1;}
     100% {opacity:0;}
   }
   
@@ -199,6 +199,16 @@
     text-align:center;
     opacity:0;
   }
+
+  #title, #rem1, #rem2{
+    white-space:pre;             /* keep \n, forbid auto-wrap */
+  }
+
+  #title{font-size:clamp(2.5vw,6vw,6vw);}     /* down to 2.5 if needed, never >6 */
+h2     {font-size:clamp(2vw,3.5vw,3.5vw);}  /* both reminders                */
+
+  
+
   #logo {max-width:70vw; max-height:70vh; object-fit:contain;}
   #title{font-size:6vw;}
   h2    {font-size:3.5vw;}
@@ -226,7 +236,7 @@
   }
   .wifi-val{
     text-align:left;
-    color:#B49646;
+    color:#ffffff;
     font-weight:700;
     white-space:nowrap;
   }
@@ -234,22 +244,32 @@
   /* ==============================================================
      PROGRAMME grid in the player
      ============================================================== */
-  #programBlock{
-    display:inline-grid;                /* shrink-to-fit, cue centres it */
-    grid-template-columns:max-content 1fr;
-    column-gap:.8em; row-gap:.4em;
-    line-height:1.1;
-    font-size:3.5vw;
-  }
-  .program-heading{
-    grid-column:1 / -1;
-    text-align:center;
-    font-size:1.1em;
-    font-weight:700;
-    margin-bottom:.2em;
-  }
-  .prog-time {text-align:right; font-weight:700; white-space:nowrap;}
-  .prog-title{text-align:left;  white-space:nowrap;}
+/* ---------- PROGRAMME grid in the player ---------- */
+#programBlock{
+  display:inline-grid;              /* let real width follow content  */
+  grid-template-columns:8ch 1fr;       /* 8-character column for times */
+  column-gap:1.2em; row-gap:.4em;
+  justify-items:start;                 /* left-align every cell */
+  line-height:1.1;
+  font-size:clamp(2vw,3.5vw,3.5vw);    /* auto-shrink if block would overflow */
+}
+
+.program-heading{
+  justify-self: center;
+  grid-column:1 / -1;
+  text-align:center;
+  font-size:5vw;          /* ← fixed size you liked */
+  margin-bottom:.25em;
+}
+
+.prog-time{
+  font-variant-numeric:tabular-nums;   /* equal-width digits */
+  white-space:nowrap;
+}
+
+.prog-title{
+  white-space:nowrap;                  /* never wrap words */
+}
   
   /* ==============================================================
      FLOATING “EDIT” BUTTON
@@ -321,12 +341,27 @@
     white-space:nowrap;   /* keep “Clear” on one line */
   }
 
+    /* FULL-SCREEN button (same style family as ⚙️) */
+  #fsBtn{
+    position:absolute;
+    top:1rem;   right:4rem;          /* sits left of the edit button */
+    padding:.4rem .6rem;
+    font-size:1.2rem; line-height:1;
+    border:none; border-radius:.35rem;
+    background:rgba(255,255,255,.8);
+    color:#000; cursor:pointer; opacity:0;
+    transition:opacity .25s;
+    opacity: 0;
+  }
+  #player:hover{opacity:1;}
+  #fsBtn:hover{opacity:1;}
+
 
   /* cue fade-zoom */
   @keyframes fadeZoom{
     0%   {opacity:0; transform:translate(-50%,-50%) scale(1);}
-    10%  {opacity:1; transform:translate(-50%,-50%) scale(1);}
-    85%  {opacity:1; transform:translate(-50%,-50%) scale(1.03);}
+    7%  {opacity:1; transform:translate(-50%,-50%) scale(1);}
+    90%  {opacity:1; transform:translate(-50%,-50%) scale(1.03);}
     100% {opacity:0; transform:translate(-50%,-50%) scale(1.05);}
   }
   
