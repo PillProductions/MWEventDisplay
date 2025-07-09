@@ -207,6 +207,20 @@
   #title{font-size:clamp(2.5vw,6vw,6vw);}     /* down to 2.5 if needed, never >6 */
 h2     {font-size:clamp(2vw,3.5vw,3.5vw);}  /* both reminders                */
 
+      /* ---------- darken every background slide ---------- */
+  #bgOverlay{
+    position:absolute;
+    inset:0;                      /* full-cover */
+    background:#413C41;           /* your colour */
+    opacity:.30;                  /* 30 % */
+    pointer-events:none;          /* clicks pass through (so ⛶ / ⚙️ still work) */
+    z-index:1;                    /* above bgContainer (default 0) */
+  }
+
+  /* keep all cues ABOVE the overlay */
+  .cue, #editBtn, #fsBtn, #logo{
+    z-index:2;
+  }
   
 
   #logo {max-width:70vw; max-height:70vh; object-fit:contain;}
@@ -236,7 +250,7 @@ h2     {font-size:clamp(2vw,3.5vw,3.5vw);}  /* both reminders                */
   }
   .wifi-val{
     text-align:left;
-    color:#ffffff;
+    color:#D7DCC8;
     font-weight:700;
     white-space:nowrap;
   }
@@ -355,6 +369,8 @@ h2     {font-size:clamp(2vw,3.5vw,3.5vw);}  /* both reminders                */
   }
   #player:hover{opacity:1;}
   #fsBtn:hover{opacity:1;}
+
+
 
 
   /* cue fade-zoom */
