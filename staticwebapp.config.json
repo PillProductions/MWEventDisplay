@@ -1,0 +1,34 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/api/*", "/defaults/*", "/*.css", "/*.js", "/*.ttf"]
+  },
+  "globalHeaders": {
+    "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'self'",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Referrer-Policy": "no-referrer"
+  },
+  "routes": [
+    {
+      "route": "/api/save",
+      "methods": ["POST"],
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/api/config/*",
+      "methods": ["GET"],
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/api/asset/*",
+      "methods": ["GET"],
+      "allowedRoles": ["anonymous"]
+    }
+  ],
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html"
+    }
+  }
+}

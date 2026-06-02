@@ -1,0 +1,22 @@
+{
+  "rules": [
+    {
+      "enabled": true,
+      "name": "expire-events-30d",
+      "type": "Lifecycle",
+      "definition": {
+        "filters": {
+          "blobTypes": ["blockBlob"],
+          "prefixMatch": ["events/"]
+        },
+        "actions": {
+          "baseBlob": {
+            "delete": {
+              "daysAfterModificationGreaterThan": 30
+            }
+          }
+        }
+      }
+    }
+  ]
+}
