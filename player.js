@@ -417,6 +417,24 @@ function startPlayer(d) {
   cueToken += 1;               // invalidate old cue loops
   resetCueAnimations();
 
+  const myToken = cueToken;    // capture so a newer start can abort us
+
+  /* —— 1b) preload every background slide (+ logo) before playing —— */
+  const overlay = $('#loadingOverlay');
+  if (overlay) overlay.classList.remove('hidden');
+
+  const toLoad = [...(Array.isArray(d.slides) ? d.slides : [])];
+  if (d.showLogo && d.logo) toLoad.push(d.logo);
+
+  preloadImages(toLoad).then(() => {
+    if (myToken !== cueToken) return;        // a newer startPlayer ran; bail
+    if (overlay) overlay.classList.add('hidden');
+    renderPlayer(d, myToken);
+  });
+}
+
+/* paint the stage & start the loops (called after images are preloaded) */
+function renderPlayer(d, myToken) {
   /* —— 2) populate the stage —— */
   $('#logo').src          = d.logo;
   $('#title').textContent = d.title;
@@ -455,7 +473,17 @@ function startPlayer(d) {
     { el: $('#rem2'),         ok: d.showRem2    && $('#rem2').textContent }
   ].filter(c => c.ok).map(c => c.el);
 
-  runCueLoop(cues, cueToken, d.cueMs);
+  runCueLoop(cues, myToken, d.cueMs);
+}
+
+/* —— preload images; resolves once all settled (errors don't block) —— */
+function preloadImages(urls) {
+  const list = (urls || []).filter(Boolean);
+  return Promise.all(list.map(src => new Promise(resolve => {
+    const img = new Image();
+    img.onload = img.onerror = () => resolve();
+    img.src = src;
+  })));
 }
 
 /* —— background Ken-Burns slideshow —— */

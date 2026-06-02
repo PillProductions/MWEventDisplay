@@ -604,6 +604,27 @@ h2     {font-size:clamp(2vw,3.5vw,3.5vw);}  /* both reminders                */
   .cue, #editBtn, #fsBtn, #copyUrlBtn, #logo{
     z-index:2;
   }
+
+  /* loading spinner shown while background slides preload */
+  #loadingOverlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#000;
+    z-index:5;                    /* above cues & overlay */
+  }
+  #loadingOverlay.hidden{ display:none; }
+  #loadingOverlay .spinner{
+    width:64px;
+    height:64px;
+    border:6px solid rgba(255,255,255,.25);
+    border-top-color:#fff;
+    border-radius:50%;
+    animation:spin 0.8s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
   
 
   #logo {max-width:30vw; max-height:30vh; object-fit:contain;}
